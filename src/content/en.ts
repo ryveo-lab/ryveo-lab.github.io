@@ -21,6 +21,7 @@ const content: SiteContent = {
     scrollHint: 'Scroll to explore',
   },
   vision: {
+    kicker: 'Vision · 愿景',
     heading: 'Reimagining the Boundaries of Creation.',
     body: [
       'RYVEO LAB believes the next leap in creative tools comes from the convergence of artificial intelligence and cinematic technology.',
@@ -28,6 +29,7 @@ const content: SiteContent = {
     ],
   },
   explore: {
+    kicker: 'Explore · 探索方向',
     heading: 'Exploring What Comes Next.',
     intro: 'Six directions we are exploring — with more to come.',
     items: [
@@ -64,10 +66,12 @@ const content: SiteContent = {
     ],
   },
   philosophy: {
+    kicker: 'Philosophy · 信念',
     lines: ['Technology Is a Medium.', 'Creativity Is the Purpose.'],
     note: 'The conviction at the heart of RYVEO LAB: tools recede into the background, and what remains is the work.',
   },
   opensource: {
+    kicker: 'Open Source · 开源',
     heading: 'Open Exploration. Shared Creation.',
     body: [
       'We believe the future of media technology will be built in the open. Our tools and infrastructure are designed developer-first, and parts of our work will be released for the community to use, study, and improve.',
@@ -77,6 +81,7 @@ const content: SiteContent = {
     note: 'Our public work lives on the GitHub organization — no fabricated numbers on the wall.',
   },
   about: {
+    kicker: 'About · 关于',
     heading: 'About RYVEO LAB',
     body: [
       'RYVEO LAB is a global cinematic ecosystem exploring the convergence of artificial intelligence and digital filmmaking — from AI-assisted image generation and production tooling to media infrastructure and next-generation interactive storytelling.',

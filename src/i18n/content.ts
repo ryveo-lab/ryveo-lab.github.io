@@ -15,6 +15,7 @@ export interface HeroCopy {
 }
 
 export interface VisionCopy {
+  kicker: string;
   heading: string;
   body: string[];
 }
@@ -26,17 +27,20 @@ export interface ExploreItem {
 }
 
 export interface ExploreCopy {
+  kicker: string;
   heading: string;
   intro: string;
   items: ExploreItem[];
 }
 
 export interface PhilosophyCopy {
+  kicker: string;
   lines: string[];
   note: string;
 }
 
 export interface OpenSourceCopy {
+  kicker: string;
   heading: string;
   body: string[];
   actionLabel: string;
@@ -44,6 +48,7 @@ export interface OpenSourceCopy {
 }
 
 export interface AboutCopy {
+  kicker: string;
   heading: string;
   body: string[];
 }

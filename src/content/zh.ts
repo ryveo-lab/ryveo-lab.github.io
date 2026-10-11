@@ -21,6 +21,7 @@ const content: SiteContent = {
     scrollHint: '向下滚动探索',
   },
   vision: {
+    kicker: '愿景 · Vision',
     heading: '重新想象创作的边界。',
     body: [
       'RYVEO LAB 相信，创作工具的下一次跃迁来自人工智能与影视技术的交汇。',
@@ -28,6 +29,7 @@ const content: SiteContent = {
     ],
   },
   explore: {
+    kicker: '探索方向 · Explore',
     heading: '探索未来的更多可能。',
     intro: '我们关注的六个技术方向，更多探索仍在路上。',
     items: [
@@ -64,10 +66,12 @@ const content: SiteContent = {
     ],
   },
   philosophy: {
+    kicker: '信念 · Philosophy',
     lines: ['技术是媒介，', '创造力才是目的。'],
     note: '这是 RYVEO LAB 的核心信念：工具终将隐入幕后，被留下的永远是作品。',
   },
   opensource: {
+    kicker: '开源 · Open Source',
     heading: '开放探索，共同创造。',
     body: [
       '我们相信媒体技术的未来将在开放中诞生。工具与基础设施从设计之初就面向开发者，并将在合适的时机公开部分工作，供社区使用、研究与改进。',
@@ -77,6 +81,7 @@ const content: SiteContent = {
     note: '公开工作集中在 GitHub 组织仓库，不设虚构的数据墙。',
   },
   about: {
+    kicker: '关于 · About',
     heading: '关于 RYVEO LAB',
     body: [
       'RYVEO LAB 是一个面向全球的影视综合生态实验室，探索人工智能与数字影视制作的交汇。我们关注 AI 驱动的影像生成、影视制作工具、媒体基础设施，以及下一代互动叙事。',

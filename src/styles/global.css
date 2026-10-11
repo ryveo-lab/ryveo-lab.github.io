@@ -104,18 +104,22 @@
 }
 
 @layer components {
-  /* Brand gradient applied to text. */
+  /* Brand gradient applied to text; background-position slowly flows
+     for a subtle living effect across the brand hues. */
   .gradient-text {
     background-image: linear-gradient(
       100deg,
       var(--brand-blue),
-      var(--brand-violet) 42%,
-      var(--brand-magenta) 68%,
-      var(--brand-orange)
+      var(--brand-violet) 32%,
+      var(--brand-magenta) 55%,
+      var(--brand-orange) 78%,
+      var(--brand-blue)
     );
+    background-size: 240% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    animation: gradient-flow 12s linear infinite;
   }
 
   /* Dark "stage" that contains the logo mark — the source PNG has a baked
@@ -137,6 +141,47 @@
       transparent
     );
   }
+
+  /* Editorial section label: small tracked text with a leading rule. */
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+  .kicker::before {
+    content: '';
+    width: 2.25rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-strong));
+  }
+
+  /* Faint dot texture used behind the hero; fades out at the edges. */
+  .dot-texture {
+    background-image: radial-gradient(
+      color-mix(in oklab, var(--fg) 10%, transparent) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+    mask-image: radial-gradient(75% 55% at 50% 42%, black, transparent 78%);
+  }
+
+  /* Slow conic aurora drifting behind the hero logo. */
+  .aurora {
+    background: conic-gradient(
+      from 130deg at 50% 50%,
+      var(--brand-blue),
+      var(--brand-violet) 30%,
+      var(--brand-magenta) 55%,
+      var(--brand-orange) 78%,
+      var(--brand-blue)
+    );
+    filter: blur(86px);
+    opacity: 0.55;
+    animation: aurora-rotate 30s linear infinite;
+  }
 }
 
 /* Soft hero entrance used on first paint (non-JS safe). */
@@ -148,6 +193,20 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Looping shift of the gradient-text background. */
+@keyframes gradient-flow {
+  to {
+    background-position: -240% 0;
+  }
+}
+
+/* Slow sweep of the conic aurora behind the hero logo. */
+@keyframes aurora-rotate {
+  to {
+    transform: rotate(1turn);
   }
 }
 

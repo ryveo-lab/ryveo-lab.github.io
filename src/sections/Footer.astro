@@ -13,9 +13,9 @@ interface Props {
 const { content, links, otherLocaleHref, ui } = Astro.props;
 ---
 
-<footer class="border-t border-line px-5 py-16 md:px-8">
+<footer class="border-t border-line px-5 py-20 md:px-8">
   <div
-    class="mx-auto flex max-w-6xl flex-col gap-10 md:flex-row md:items-start md:justify-between"
+    class="mx-auto grid max-w-6xl gap-12 md:grid-cols-[1.4fr_1fr_1fr]"
   >
     <div class="flex max-w-xs flex-col gap-3">
       <a href="/" class="flex items-center gap-2.5" aria-label="RYVEO LAB">
@@ -31,43 +31,54 @@ const { content, links, otherLocaleHref, ui } = Astro.props;
       <p class="text-sm leading-relaxed text-muted">{content.tagline}</p>
     </div>
 
-    <nav
-      class="grid grid-cols-2 gap-2"
-      aria-label={ui.footerNavLabel}
-    >
-      {
-        links.map((link) => (
-          <a
-            href={link.href}
-            class="w-fit text-sm text-muted transition-colors hover:text-foreground"
-          >
-            {link.label}
-          </a>
-        ))
-      }
+    <nav aria-label={ui.footerNavLabel}>
+      <p class="text-xs text-muted">{ui.footerExploreLabel}</p>
+      <ul class="mt-4 flex flex-col gap-3">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-sm text-muted transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </nav>
 
-    <div class="flex flex-col items-start gap-3 md:items-end">
-      <a
-        href={ORG_URL}
-        target="_blank"
-        rel="noreferrer"
-        class="text-sm text-muted transition-colors hover:text-foreground"
-      >
-        {content.githubLabel} ↗
-      </a>
-      <a
-        href={otherLocaleHref}
-        class="text-sm text-muted transition-colors hover:text-foreground"
-      >
-        {ui.switchLang}
-      </a>
-      <a
-        href="#hero"
-        class="text-sm text-muted transition-colors hover:text-foreground"
-      >
-        {content.backToTop} ↑
-      </a>
+    <div>
+      <p class="text-xs text-muted">{ui.footerConnectLabel}</p>
+      <ul class="mt-4 flex flex-col gap-3">
+        <li>
+          <a
+            href={ORG_URL}
+            target="_blank"
+            rel="noreferrer"
+            class="text-sm text-muted transition-colors hover:text-foreground"
+          >
+            {content.githubLabel} ↗
+          </a>
+        </li>
+        <li>
+          <a
+            href={otherLocaleHref}
+            class="text-sm text-muted transition-colors hover:text-foreground"
+          >
+            {ui.switchLang}
+          </a>
+        </li>
+        <li>
+          <a
+            href="#hero"
+            class="text-sm text-muted transition-colors hover:text-foreground"
+          >
+            {content.backToTop} ↑
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </footer>

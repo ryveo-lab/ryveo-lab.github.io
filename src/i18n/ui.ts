@@ -9,6 +9,8 @@ export interface UiStrings {
   otherLang: string;
   navLabel: string;
   footerNavLabel: string;
+  footerExploreLabel: string;
+  footerConnectLabel: string;
   /** Copy hint shown for jump-links that point into the page. */
   goTo: string;
 }
@@ -22,6 +24,8 @@ export const ui: Record<Locale, UiStrings> = {
     otherLang: 'EN',
     navLabel: '主导航',
     footerNavLabel: '页脚导航',
+    footerExploreLabel: '探索',
+    footerConnectLabel: '连接',
     goTo: '跳转到',
   },
   en: {
@@ -32,6 +36,8 @@ export const ui: Record<Locale, UiStrings> = {
     otherLang: '中',
     navLabel: 'Main navigation',
     footerNavLabel: 'Footer navigation',
+    footerExploreLabel: 'Explore',
+    footerConnectLabel: 'Connect',
     goTo: 'Go to',
   },
 };
