@@ -1,7 +1,10 @@
 import type { Locale } from './content';
 
 export interface UiStrings {
-  themeToggle: string;
+  /** 主题按钮的 aria-label，依当前模式描述单击后的下一个状态。 */
+  themeToLight: string;
+  themeToDark: string;
+  themeToAuto: string;
   openMenu: string;
   closeMenu: string;
   switchLang: string;
@@ -17,7 +20,9 @@ export interface UiStrings {
 
 export const ui: Record<Locale, UiStrings> = {
   'zh-CN': {
-    themeToggle: '切换深浅主题',
+    themeToLight: '切换到浅色主题',
+    themeToDark: '切换到深色主题',
+    themeToAuto: '跟随系统主题',
     openMenu: '打开导航菜单',
     closeMenu: '关闭导航菜单',
     switchLang: '切换到英文',
@@ -29,7 +34,9 @@ export const ui: Record<Locale, UiStrings> = {
     goTo: '跳转到',
   },
   en: {
-    themeToggle: 'Toggle light / dark theme',
+    themeToLight: 'Switch to light theme',
+    themeToDark: 'Switch to dark theme',
+    themeToAuto: 'Follow system theme',
     openMenu: 'Open navigation menu',
     closeMenu: 'Close navigation menu',
     switchLang: 'Switch to Chinese',

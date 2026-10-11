@@ -49,18 +49,18 @@ const skipLabel =
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={ogLocale} />
     <meta name="twitter:card" content="summary" />
-    <!-- 首屏前确定主题，避免闪烁：无本地偏好时跟随系统。 -->
+    <!-- 首屏前确定外观模式，避免闪烁：无偏好或 auto 时跟随系统。 -->
     <script is:inline>
       (function () {
-        var stored = null;
+        var mode = null;
         try {
-          stored = localStorage.getItem('ryveo-theme');
+          mode = localStorage.getItem('ryveo-theme');
         } catch (e) {
           /* private 模式下读取失败时回退到系统偏好 */
         }
-        var dark = stored
-          ? stored === 'dark'
-          : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var mq = window.matchMedia('(prefers-color-scheme: dark)');
+        var dark =
+          mode === 'dark' ? true : mode === 'light' ? false : mq.matches;
         document.documentElement.classList.toggle('dark', dark);
       })();
     </script>

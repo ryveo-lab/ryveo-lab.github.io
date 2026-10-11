@@ -47,6 +47,17 @@ function MoonIcon() {
   );
 }
 
+/* 半明半暗的圆形：表示"跟随系统"模式。 */
+function AutoIcon() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor" opacity=".14" />
+      <path d="M12 3a9 9 0 0 0 0 18Z" fill="currentColor" opacity=".9" />
+      <path d="M12 3v18" stroke="currentColor" strokeWidth="1.1" />
+    </svg>
+  );
+}
+
 function MenuIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -74,6 +85,12 @@ export function SiteNav({
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState('');
+  /** 主题模式：auto=跟随系统（可实时响应系统切换）；light/dark 为手动覆盖。 */
+  const [themeMode, setThemeMode] = useState<'auto' | 'light' | 'dark'>(() => {
+    if (typeof window === 'undefined') return 'auto';
+    const stored = localStorage.getItem(THEME_STORAGE_KEY);
+    return stored === 'light' || stored === 'dark' ? stored : 'auto';
+  });
 
   // 顶部渐变进度条：以滚动进度驱动的 scaleX。
   const { scrollYProgress } = useScroll();
@@ -91,18 +108,19 @@ export function SiteNav({
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // 主题：无本地偏好时跟随系统，并在系统中切换时实时响应。
+  // 主题：auto 时跟随系统并实时响应切换；light/dark 为手动覆盖。
   useEffect(() => {
-    const stored = localStorage.getItem(THEME_STORAGE_KEY);
-    if (stored !== null) return;
+    const root = document.documentElement;
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    const apply = (dark: boolean) =>
-      document.documentElement.classList.toggle('dark', dark);
-    apply(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => apply(e.matches);
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []);
+    const apply = (dark: boolean) => root.classList.toggle('dark', dark);
+    if (themeMode === 'auto') {
+      apply(mq.matches);
+      const onChange = (e: MediaQueryListEvent) => apply(e.matches);
+      mq.addEventListener('change', onChange);
+      return () => mq.removeEventListener('change', onChange);
+    }
+    apply(themeMode === 'dark');
+  }, [themeMode]);
 
   // 用户此前明确选择了英文时，从首页（/）进入一跳转至 /en/。
   useEffect(() => {
@@ -151,10 +169,16 @@ export function SiteNav({
     };
   }, [open]);
 
-  const toggleTheme = () => {
-    const root = document.documentElement;
-    const dark = root.classList.toggle('dark');
-    localStorage.setItem(THEME_STORAGE_KEY, dark ? 'dark' : 'light');
+  /** 三态循环：跟随系统 → 浅色 → 深色 → 跟随系统。 */
+  const cycleTheme = () => {
+    const next: Record<'auto' | 'light' | 'dark', 'auto' | 'light' | 'dark'> = {
+      auto: 'light',
+      light: 'dark',
+      dark: 'auto',
+    };
+    const target = next[themeMode];
+    localStorage.setItem(THEME_STORAGE_KEY, target);
+    setThemeMode(target);
   };
 
   const switchLang = () => {
@@ -227,15 +251,24 @@ export function SiteNav({
 
             <button
               type="button"
-              onClick={toggleTheme}
-              aria-label={ui.themeToggle}
+              onClick={cycleTheme}
+              aria-label={
+                themeMode === 'auto'
+                  ? ui.themeToLight
+                  : themeMode === 'light'
+                    ? ui.themeToDark
+                    : ui.themeToAuto
+              }
               className="group grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-line-strong hover:text-foreground"
             >
-              <span className="hidden transition-transform duration-300 group-hover:rotate-12 dark:block">
-                <SunIcon />
-              </span>
-              <span className="block transition-transform duration-300 group-hover:-rotate-12 dark:hidden">
-                <MoonIcon />
+              <span className="transition-transform duration-300 group-hover:rotate-12">
+                {themeMode === 'auto' ? (
+                  <AutoIcon />
+                ) : themeMode === 'light' ? (
+                  <SunIcon />
+                ) : (
+                  <MoonIcon />
+                )}
               </span>
             </button>
 
