@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import content from '../content/zh';
+import HeroSection from '../sections/HeroSection.astro';
+import Vision from '../sections/Vision.astro';
+import Explore from '../sections/Explore.astro';
+import Philosophy from '../sections/Philosophy.astro';
+import OpenSource from '../sections/OpenSource.astro';
+import About from '../sections/About.astro';
+---
+
+<!-- 简体中文为默认语言，站点首页。 -->
+<BaseLayout content={content} otherLocaleHref="/en/">
+  <HeroSection content={content.hero} />
+  <div class="section-divider mx-auto max-w-6xl"></div>
+  <Vision content={content.vision} />
+  <div class="section-divider mx-auto max-w-6xl"></div>
+  <Explore content={content.explore} />
+  <div class="section-divider mx-auto max-w-6xl"></div>
+  <Philosophy content={content.philosophy} />
+  <div class="section-divider mx-auto max-w-6xl"></div>
+  <OpenSource content={content.opensource} />
+  <div class="section-divider mx-auto max-w-6xl"></div>
+  <About content={content.about} />
+</BaseLayout>

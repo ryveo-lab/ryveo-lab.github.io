@@ -1,0 +1,84 @@
+---
+import '../styles/global.css';
+import { SiteNav } from '../components/SiteNav';
+import Footer from '../sections/Footer.astro';
+import type { SiteContent } from '../i18n/content';
+import { ui } from '../i18n/ui';
+
+interface Props {
+  content: SiteContent;
+  /** 目标语言页地址：/en/ 或 /。 */
+  otherLocaleHref: string;
+}
+
+const { content, otherLocaleHref } = Astro.props;
+const strings = ui[content.locale];
+const currentLangShort = content.locale === 'zh-CN' ? '中' : 'EN';
+const site = 'https://ryveo-lab.github.io';
+const canonical = content.locale === 'zh-CN' ? `${site}/` : `${site}/en/`;
+const ogLocale = content.locale === 'zh-CN' ? 'zh_CN' : 'en_US';
+const skipLabel =
+  content.locale === 'zh-CN' ? '跳到主要内容' : 'Skip to main content';
+---
+
+<!doctype html>
+<html lang={content.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{content.seo.title}</title>
+    <meta name="description" content={content.seo.description} />
+    <link rel="icon" type="image/png" href="/brand/favicon.png" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="zh-CN" href={`${site}/`} />
+    <link rel="alternate" hreflang="en" href={`${site}/en/`} />
+    <link rel="alternate" hreflang="x-default" href={`${site}/`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="RYVEO LAB" />
+    <meta property="og:title" content={content.seo.title} />
+    <meta property="og:description" content={content.seo.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta name="twitter:card" content="summary" />
+    <!-- 首屏前确定主题，避免闪烁：无本地偏好时跟随系统。 -->
+    <script is:inline>
+      (function () {
+        var stored = null;
+        try {
+          stored = localStorage.getItem('ryveo-theme');
+        } catch (e) {
+          /* private 模式下读取失败时回退到系统偏好 */
+        }
+        var dark = stored
+          ? stored === 'dark'
+          : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.classList.toggle('dark', dark);
+      })();
+    </script>
+  </head>
+  <body class="bg-background text-foreground">
+    <a
+      href="#main"
+      class="sr-only z-[60] focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:rounded-md focus:bg-elevated focus:px-4 focus:py-2 focus:text-sm"
+    >
+      {skipLabel}
+    </a>
+    <SiteNav
+      client:load
+      locale={content.locale}
+      links={content.navLinks}
+      otherLocaleHref={otherLocaleHref}
+      ui={strings}
+      currentLangShort={currentLangShort}
+    />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer
+      content={content.footer}
+      links={content.navLinks}
+      otherLocaleHref={otherLocaleHref}
+      ui={strings}
+    />
+  </body>
+</html>

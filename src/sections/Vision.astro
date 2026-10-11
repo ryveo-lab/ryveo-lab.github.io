@@ -1,0 +1,35 @@
+---
+import { Reveal } from '../components/Reveal';
+import type { VisionCopy } from '../i18n/content';
+
+interface Props {
+  content: VisionCopy;
+}
+
+const { content } = Astro.props;
+---
+
+<section id="vision" class="scroll-mt-16 px-5 py-28 md:px-8 md:py-36">
+  <div
+    class="mx-auto grid max-w-6xl gap-12 md:grid-cols-[1.35fr_1fr] md:gap-16"
+  >
+    <Reveal client:visible>
+      <h2
+        class="font-display text-4xl font-medium leading-tight tracking-tight md:text-6xl"
+      >
+        {content.heading}
+      </h2>
+    </Reveal>
+    <div class="flex flex-col justify-end gap-6 border-l border-line pl-7 md:pl-9">
+      {
+        content.body.map((paragraph, index) => (
+          <Reveal client:visible delay={0.1 + index * 0.12}>
+            <p class="text-base leading-relaxed text-muted md:text-lg">
+              {paragraph}
+            </p>
+          </Reveal>
+        ))
+      }
+    </div>
+  </div>
+</section>

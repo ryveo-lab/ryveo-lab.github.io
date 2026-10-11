@@ -1,0 +1,73 @@
+---
+import type { FooterCopy, NavLink } from '../i18n/content';
+import { ORG_URL } from '../i18n/content';
+import type { UiStrings } from '../i18n/ui';
+
+interface Props {
+  content: FooterCopy;
+  links: NavLink[];
+  otherLocaleHref: string;
+  ui: UiStrings;
+}
+
+const { content, links, otherLocaleHref, ui } = Astro.props;
+---
+
+<footer class="border-t border-line px-5 py-16 md:px-8">
+  <div
+    class="mx-auto flex max-w-6xl flex-col gap-10 md:flex-row md:items-start md:justify-between"
+  >
+    <div class="flex max-w-xs flex-col gap-3">
+      <a href="/" class="flex items-center gap-2.5" aria-label="RYVEO LAB">
+        <img
+          src="/brand/ryveo-mark.png"
+          alt=""
+          width={38}
+          height={23}
+          class="h-5 w-8 rounded-[4px] object-cover"
+        />
+        <span class="text-[15px] font-semibold tracking-tight">RYVEO LAB</span>
+      </a>
+      <p class="text-sm leading-relaxed text-muted">{content.tagline}</p>
+    </div>
+
+    <nav
+      class="grid grid-cols-2 gap-2"
+      aria-label={ui.footerNavLabel}
+    >
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="w-fit text-sm text-muted transition-colors hover:text-foreground"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex flex-col items-start gap-3 md:items-end">
+      <a
+        href={ORG_URL}
+        target="_blank"
+        rel="noreferrer"
+        class="text-sm text-muted transition-colors hover:text-foreground"
+      >
+        {content.githubLabel} ↗
+      </a>
+      <a
+        href={otherLocaleHref}
+        class="text-sm text-muted transition-colors hover:text-foreground"
+      >
+        {ui.switchLang}
+      </a>
+      <a
+        href="#hero"
+        class="text-sm text-muted transition-colors hover:text-foreground"
+      >
+        {content.backToTop} ↑
+      </a>
+    </div>
+  </div>
+</footer>

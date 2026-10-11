@@ -1,0 +1,41 @@
+---
+import { Hero } from '../components/Hero';
+import type { HeroCopy } from '../i18n/content';
+import { ORG_URL } from '../i18n/content';
+
+interface Props {
+  content: HeroCopy;
+}
+
+const { content } = Astro.props;
+---
+
+<section class="relative overflow-hidden">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+    <div
+      class="absolute left-1/2 top-[-180px] h-[640px] w-[900px] -translate-x-1/2 rounded-full blur-3xl"
+      style="background: radial-gradient(closest-side, var(--hero-glow-a), transparent 72%)"
+    ></div>
+    <div
+      class="absolute left-[-14%] top-[44%] h-[420px] w-[420px] rounded-full blur-3xl"
+      style="background: radial-gradient(closest-side, var(--hero-glow-b), transparent 72%)"
+    ></div>
+    <div
+      class="absolute right-[-14%] top-[36%] h-[420px] w-[420px] rounded-full blur-3xl"
+      style="background: radial-gradient(closest-side, var(--hero-glow-c), transparent 72%)"
+    ></div>
+    <div
+      class="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-background to-transparent"
+    ></div>
+  </div>
+
+  <Hero client:idle content={content} githubUrl={ORG_URL} visionAnchor="#vision" />
+
+  <div
+    class="absolute inset-x-0 bottom-8 z-10 flex flex-col items-center gap-2 text-muted"
+    aria-hidden="true"
+  >
+    <span class="text-xs">{content.scrollHint}</span>
+    <span class="scroll-cue-line block h-10 w-px bg-line-strong"></span>
+  </div>
+</section>

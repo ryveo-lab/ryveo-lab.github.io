@@ -1,0 +1,52 @@
+---
+import { Reveal } from '../components/Reveal';
+import type { ExploreCopy } from '../i18n/content';
+
+interface Props {
+  content: ExploreCopy;
+}
+
+const { content } = Astro.props;
+---
+
+<section id="explore" class="scroll-mt-16 px-5 py-28 md:px-8 md:py-36">
+  <div class="mx-auto max-w-6xl">
+    <Reveal client:visible>
+      <h2
+        class="font-display text-4xl font-medium leading-tight tracking-tight md:text-6xl"
+      >
+        {content.heading}
+      </h2>
+    </Reveal>
+    <Reveal client:visible delay={0.1}>
+      <p class="mt-4 max-w-xl text-base text-muted">{content.intro}</p>
+    </Reveal>
+
+    <div class="mt-14 border-t border-line">
+      {
+        content.items.map((item, index) => (
+          <Reveal client:visible delay={index * 0.06} y={14}>
+            <article
+              class="group flex flex-col gap-1 border-b border-line py-6 transition-colors hover:bg-surface/50 md:flex-row md:items-baseline md:gap-10"
+            >
+              <span
+                class="font-mono text-xs tabular-nums text-muted"
+                aria-hidden="true"
+              >
+                {item.index}
+              </span>
+              <h3
+                class="font-display text-lg font-medium tracking-tight transition-transform duration-300 group-hover:translate-x-1 md:w-56 md:text-2xl"
+              >
+                {item.term}
+              </h3>
+              <p class="flex-1 text-sm leading-relaxed text-muted md:text-base">
+                {item.desc}
+              </p>
+            </article>
+          </Reveal>
+        ))
+      }
+    </div>
+  </div>
+</section>

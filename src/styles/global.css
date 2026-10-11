@@ -1,0 +1,189 @@
+/* Self-hosted variable font: Inter for Latin; CJK falls back to system fonts
+   (PingFang SC / Microsoft YaHei) to keep the first paint light — a full
+   Noto Sans SC WOFF2 set would cost several hundred KB on first load. */
+@import '@fontsource-variable/inter';
+@import 'tailwindcss';
+
+/* Class-based dark mode: `.dark` on <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Semantic tokens are runtime CSS variables (not build-time constants), so the
+ * `.dark` override flips every utility (bg-background, text-foreground, ...).
+ * The `@theme inline` block maps Tailwind utilities to those variables.
+ */
+@theme inline {
+  --color-background: var(--bg);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-foreground: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--border-soft);
+  --color-line-strong: var(--border-strong);
+
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-cyan: var(--brand-cyan);
+  --color-brand-violet: var(--brand-violet);
+  --color-brand-magenta: var(--brand-magenta);
+  --color-brand-orange: var(--brand-orange);
+
+  --font-sans: 'Inter Variable', 'Noto Sans SC', 'PingFang SC',
+    'Microsoft YaHei', system-ui, sans-serif;
+  --font-display: 'Inter Variable', 'Noto Sans SC', 'PingFang SC',
+    'Microsoft YaHei', system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Light theme */
+  --bg: #f6f7fb;
+  --surface: #edeff6;
+  --elevated: #ffffff;
+  --fg: #11151d;
+  --muted: #565f6d;
+  --border-soft: rgb(17 21 29 / 0.1);
+  --border-strong: rgb(17 21 29 / 0.22);
+
+  --brand-blue: #247bff;
+  --brand-cyan: #18b7d8;
+  --brand-violet: #7958ff;
+  --brand-magenta: #d86cff;
+  --brand-orange: #e07c00;
+
+  --hero-glow-a: rgb(36 123 255 / 0.14);
+  --hero-glow-b: rgb(121 88 255 / 0.1);
+  --hero-glow-c: rgb(224 124 0 / 0.1);
+}
+
+.dark {
+  color-scheme: dark;
+
+  /* Dark theme */
+  --bg: #05060b;
+  --surface: #0b1020;
+  --elevated: #0d1326;
+  --fg: #f5f7fa;
+  --muted: #9ca3af;
+  --border-soft: rgb(245 247 250 / 0.1);
+  --border-strong: rgb(245 247 250 / 0.24);
+
+  --brand-blue: #4d8dff;
+  --brand-cyan: #4ddcff;
+  --brand-violet: #8f6dff;
+  --brand-magenta: #e18aff;
+  --brand-orange: #ffaa65;
+
+  --hero-glow-a: rgb(36 123 255 / 0.22);
+  --hero-glow-b: rgb(121 88 255 / 0.18);
+  --hero-glow-c: rgb(255 170 101 / 0.14);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--brand-violet) 35%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand-blue);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Brand gradient applied to text. */
+  .gradient-text {
+    background-image: linear-gradient(
+      100deg,
+      var(--brand-blue),
+      var(--brand-violet) 42%,
+      var(--brand-magenta) 68%,
+      var(--brand-orange)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Dark "stage" that contains the logo mark — the source PNG has a baked
+     dark background, so it lives inside a fixed dark panel in both themes. */
+  .brand-stage {
+    background:
+      radial-gradient(120% 90% at 50% 20%, rgb(24 34 66 / 0.9), #04050a 70%);
+    border: 1px solid rgb(245 247 250 / 0.08);
+  }
+
+  /* Ambient section divider used between major sections. */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--border-strong) 20%,
+      var(--border-strong) 80%,
+      transparent
+    );
+  }
+}
+
+/* Soft hero entrance used on first paint (non-JS safe). */
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero scroll cue: a short line drawing downward, then returning up. */
+@keyframes scroll-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+.scroll-cue-line {
+  animation: scroll-cue 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
