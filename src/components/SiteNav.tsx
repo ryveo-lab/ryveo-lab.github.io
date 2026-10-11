@@ -113,6 +113,11 @@ export function SiteNav({
     }
   }, [locale]);
 
+  // 独立页面（社区页）直接高亮自身导航项，无需滚动监听。
+  useEffect(() => {
+    if (window.location.pathname.includes('/community')) setActive('/community/');
+  }, []);
+
   // 滚动高亮：当前可见区块对应的导航项。
   useEffect(() => {
     const targets = links

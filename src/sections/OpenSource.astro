@@ -1,13 +1,15 @@
 ---
 import { Reveal } from '../components/Reveal';
 import type { OpenSourceCopy } from '../i18n/content';
-import { ORG_URL } from '../i18n/content';
+import { ORG_URL, REPOS_URL } from '../i18n/content';
 
 interface Props {
   content: OpenSourceCopy;
+  /** 社区页地址：/community/（中文站）或 /en/community/（英文站）。 */
+  communityHref: string;
 }
 
-const { content } = Astro.props;
+const { content, communityHref } = Astro.props;
 ---
 
 <section id="opensource" class="scroll-mt-28 px-5 py-32 md:px-8 md:py-44">
@@ -73,7 +75,7 @@ const { content } = Astro.props;
               Repositories
             </span>
             <a
-              href={`${ORG_URL}/repositories`}
+              href={REPOS_URL}
               target="_blank"
               rel="noreferrer"
               class="shrink-0 font-mono text-sm text-muted transition-all duration-300 group-hover:translate-x-1 group-hover:text-foreground"
@@ -83,16 +85,28 @@ const { content } = Astro.props;
             </a>
           </li>
           <li class="group flex items-baseline justify-between gap-6 border-b border-line pb-4">
-            <span class="text-sm text-muted">Contribution guides</span>
-            <span class="shrink-0 rounded-full border border-line px-2.5 py-0.5 text-xs text-muted">
-              计划中 · Planned
+            <span class="text-sm text-muted transition-colors duration-300 group-hover:text-foreground">
+              Contribution guides
             </span>
+            <a
+              href={`${communityHref}#contributing`}
+              class="shrink-0 font-mono text-sm text-muted transition-all duration-300 group-hover:translate-x-1 group-hover:text-foreground"
+              aria-label="Contribution guides"
+            >
+              →
+            </a>
           </li>
-          <li class="flex items-baseline justify-between gap-6">
-            <span class="text-sm text-muted">Community governance</span>
-            <span class="shrink-0 rounded-full border border-line px-2.5 py-0.5 text-xs text-muted">
-              计划中 · Planned
+          <li class="group flex items-baseline justify-between gap-6">
+            <span class="text-sm text-muted transition-colors duration-300 group-hover:text-foreground">
+              Community governance
             </span>
+            <a
+              href={`${communityHref}#governance`}
+              class="shrink-0 font-mono text-sm text-muted transition-all duration-300 group-hover:translate-x-1 group-hover:text-foreground"
+              aria-label="Community governance"
+            >
+              →
+            </a>
           </li>
         </ul>
       </aside>

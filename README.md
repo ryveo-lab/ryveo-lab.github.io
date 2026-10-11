@@ -23,9 +23,9 @@ npm run preview  # 预览生产构建
 
 ```text
 src/
-├── pages/          # /（中文）+ /en/（英文）两个静态入口
+├── pages/          # /（中文）+ /en/（英文）两套静态入口，各含首页与 /community/ 社区页
 ├── layouts/        # BaseLayout：SEO、主题初始化、导航与页脚骨架
-├── sections/       # Hero / Vision / Explore / Philosophy / OpenSource / About
+├── sections/       # Hero / Vision / Explore / Philosophy / OpenSource / Community / About
 ├── components/     # React Islands：SiteNav、Hero、Reveal
 ├── content/        # zh.ts / en.ts 双语内容（含 SEO 文案）
 ├── i18n/           # 类型与界面字符串

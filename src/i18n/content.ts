@@ -53,9 +53,45 @@ export interface AboutCopy {
   body: string[];
 }
 
+export interface CommunityStep {
+  index: string;
+  term: string;
+  desc: string;
+}
+
+export interface CommunityRole {
+  term: string;
+  desc: string;
+}
+
+export interface CommunityPrinciple {
+  term: string;
+  desc: string;
+}
+
+export interface CommunityCopy {
+  kicker: string;
+  lines: string[];
+  sub: string;
+  contributingKicker: string;
+  contributingHeading: string;
+  contributingIntro: string;
+  steps: CommunityStep[];
+  principle: string;
+  cocLabel: string;
+  governanceKicker: string;
+  governanceHeading: string;
+  governanceIntro: string;
+  roles: CommunityRole[];
+  principles: CommunityPrinciple[];
+  governanceNote: string;
+  githubLabel: string;
+}
+
 export interface FooterCopy {
   tagline: string;
   githubLabel: string;
+  communityLabel: string;
   backToTop: string;
 }
 
@@ -74,8 +110,11 @@ export interface SiteContent {
   philosophy: PhilosophyCopy;
   opensource: OpenSourceCopy;
   about: AboutCopy;
+  community: CommunityCopy;
   footer: FooterCopy;
 }
 
 /** GitHub 组织入口，按规范不虚构项目与数据。 */
 export const ORG_URL = 'https://github.com/ryveo-lab';
+/** 组织仓库列表的规范路径（`/ryveo-lab/repositories` 会 404）。 */
+export const REPOS_URL = 'https://github.com/orgs/ryveo-lab/repositories';

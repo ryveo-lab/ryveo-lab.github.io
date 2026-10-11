@@ -11,6 +11,7 @@ const content: SiteContent = {
     { href: '#vision', label: '愿景' },
     { href: '#explore', label: '探索' },
     { href: '#opensource', label: '开源' },
+    { href: '/community/', label: '社区' },
     { href: '#about', label: '关于' },
   ],
   hero: {
@@ -75,10 +76,43 @@ const content: SiteContent = {
     heading: '开放探索，共同创造。',
     body: [
       '我们相信媒体技术的未来将在开放中诞生。工具与基础设施从设计之初就面向开发者，并将在合适的时机公开部分工作，供社区使用、研究与改进。',
-      '公开仓库、贡献指南与社区治理会随着项目进展逐步开放，欢迎一切认真的讨论。',
+      '贡献指南与社区治理已公开，详见社区页面；更多公开仓库会随项目进展逐步开放。',
     ],
     actionLabel: '探索 GitHub',
     note: '公开工作集中在 GitHub 组织仓库，不设虚构的数据墙。',
+  },
+  community: {
+    kicker: '社区 · Community',
+    lines: ['一起构建，', '彼此成就。'],
+    sub: '贡献指南与社区治理：技术开放，讨论认真。',
+    contributingKicker: '贡献指南 · Contribution Guides',
+    contributingHeading: '让每一次贡献都有意义。',
+    contributingIntro:
+      '无论你来自哪里，你的第一个 issue、第一次 review、第一个 pull request，都受欢迎。这是我们约定的协作方式。',
+    steps: [
+      { index: '01', term: '了解项目', desc: '阅读仓库 README 与贡献指南，找到与你兴趣相合的方向。' },
+      { index: '02', term: '先讨论', desc: '提出想法或问题，在 issue 与讨论区先与维护者对齐方向。' },
+      { index: '03', term: '提交变更', desc: 'Fork 仓库、创建分支，遵循仓库约定提交清晰的 commit 与 PR。' },
+      { index: '04', term: '评审与合并', desc: '维护者与社区成员共同评审，迭代反馈后合并落地。' },
+    ],
+    principle: '不同仓库可能有各自更具体的约定——一切以仓库内的 CONTRIBUTING.md 为准。',
+    cocLabel: '参与即意味着你同意遵循行为准则（Code of Conduct）。',
+    governanceKicker: '社区治理 · Community Governance',
+    governanceHeading: '透明、开放、共识。',
+    governanceIntro: 'RYVEO LAB 采取开放而审慎的治理方式：任何人都可以观察、参与并提出异议。',
+    roles: [
+      { term: '维护者 · Maintainers', desc: '负责关键路径：评审合并、发布版本、把握项目方向。' },
+      { term: '贡献者 · Contributors', desc: '以 issue、PR、文档与讨论持续推动项目前进。' },
+      { term: '社区 · Community', desc: '所有使用、阅读与传播项目的人，共同构成生态。' },
+    ],
+    principles: [
+      { term: '共识优先', desc: '重要决定通过公开讨论达成，默认开放、记录在案。' },
+      { term: '语义化版本', desc: '公开发布遵循 SemVer，破坏性变更提前公告。' },
+      { term: '行为准则', desc: '一切交互遵循 Code of Conduct，营造友善环境。' },
+      { term: '公开透明', desc: '路线图、变更与决定都在 GitHub 上公开进行。' },
+    ],
+    governanceNote: '治理规则会随组织成长而演进——欢迎通过 issue 提出改进建议。',
+    githubLabel: '在 GitHub 参与',
   },
   about: {
     kicker: '关于 · About',
@@ -91,6 +125,7 @@ const content: SiteContent = {
   footer: {
     tagline: '科技与叙事的交汇。',
     githubLabel: 'GitHub',
+    communityLabel: '社区',
     backToTop: '返回顶部',
   },
 };

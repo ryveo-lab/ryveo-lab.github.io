@@ -1,0 +1,251 @@
+---
+import { Reveal } from '../components/Reveal';
+import type { CommunityCopy } from '../i18n/content';
+import { ORG_URL, REPOS_URL } from '../i18n/content';
+
+interface Props {
+  content: CommunityCopy;
+}
+
+const { content } = Astro.props;
+/* 组织级默认社区文档，落地于 .github 仓库（页面链接指向真实文件）。 */
+const CONTRIBUTING_URL = `${ORG_URL}/.github/blob/main/CONTRIBUTING.md`;
+const COC_URL = `${ORG_URL}/.github/blob/main/CODE_OF_CONDUCT.md`;
+const lastLine = content.lines.length - 1;
+---
+
+<!-- 页头：社区页独立首屏。 -->
+<section id="hero" class="relative scroll-mt-28 overflow-hidden px-5 pb-24 pt-36 md:px-8 md:pb-32 md:pt-44">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+    <div class="dot-texture absolute inset-0"></div>
+    <div
+      class="absolute left-1/2 top-[-160px] h-[480px] w-[720px] -translate-x-1/2 rounded-full blur-3xl"
+      style="background: radial-gradient(closest-side, var(--hero-glow-a), transparent 72%)"
+    ></div>
+  </div>
+  <div class="relative mx-auto max-w-3xl text-center">
+    <Reveal client:visible>
+      <p class="kicker mx-auto w-fit">{content.kicker}</p>
+    </Reveal>
+    <Reveal client:visible as="span" className="mt-3 block">
+      <h1
+        class="font-display text-[clamp(2.4rem,_7vw,_5rem)] font-medium leading-[1.1] tracking-tight"
+      >
+        {
+          content.lines.map((line, index) => (
+            <Reveal
+              client:visible
+              as="span"
+              variant="mask"
+              delay={0.12 + index * 0.14}
+              className="block overflow-hidden"
+            >
+              <span class="block">
+                {index === lastLine ? <span class="gradient-text">{line}</span> : line}
+              </span>
+            </Reveal>
+          ))
+        }
+      </h1>
+    </Reveal>
+    <Reveal client:visible delay={0.34}>
+      <p class="mx-auto mt-9 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
+        {content.sub}
+      </p>
+    </Reveal>
+  </div>
+</section>
+
+<!-- 贡献指南：四步流程 + 行为准则。 -->
+<section id="contributing" class="scroll-mt-28 px-5 py-32 md:px-8 md:py-44">
+  <div class="mx-auto max-w-6xl">
+    <div class="max-w-2xl">
+      <Reveal client:visible>
+        <p class="kicker">{content.contributingKicker}</p>
+      </Reveal>
+      <Reveal client:visible variant="mask" delay={0.08}>
+        <h2
+          class="mt-7 font-display text-4xl font-medium leading-[1.15] tracking-tight md:text-6xl"
+        >
+          {content.contributingHeading}
+        </h2>
+      </Reveal>
+      <Reveal client:visible delay={0.16}>
+        <p class="mt-5 text-muted">{content.contributingIntro}</p>
+      </Reveal>
+    </div>
+
+    <div class="mt-16 border-t border-line">
+      {
+        content.steps.map((step, index) => (
+          <Reveal client:visible delay={index * 0.05} y={14}>
+            <article
+              class="group flex flex-col gap-2 border-b border-line py-7 transition-colors hover:bg-surface/50 md:grid md:grid-cols-[3.5rem_1.4fr_2fr_2rem] md:items-center md:gap-10 md:py-8"
+            >
+              <span
+                class="font-mono text-sm tabular-nums text-muted transition-colors duration-300 group-hover:text-brand-violet"
+                aria-hidden="true"
+              >
+                {step.index}
+              </span>
+              <h3
+                class="font-display text-xl font-medium tracking-tight transition-transform duration-300 group-hover:translate-x-1 md:text-3xl"
+              >
+                {step.term}
+              </h3>
+              <p class="text-sm leading-relaxed text-muted md:pr-8 md:text-base">
+                {step.desc}
+              </p>
+              <span
+                aria-hidden="true"
+                class="hidden font-mono text-muted/50 transition-all duration-300 group-hover:translate-x-1 group-hover:text-brand-violet md:inline-block"
+              >
+                →
+              </span>
+            </article>
+          </Reveal>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+      <Reveal client:visible delay={0.1}>
+        <p class="max-w-xl text-sm leading-relaxed text-muted">{content.principle}</p>
+      </Reveal>
+      <Reveal client:visible delay={0.16}>
+        <a
+          href={CONTRIBUTING_URL}
+          target="_blank"
+          rel="noreferrer"
+          class="inline-flex h-11 w-fit items-center gap-2 rounded-full border border-line-strong px-5 text-sm font-medium transition-colors hover:border-brand-violet/70 hover:text-brand-violet"
+        >
+          CONTRIBUTING.md
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-0.5">
+            <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      </Reveal>
+    </div>
+    <Reveal client:visible delay={0.2}>
+      <p class="mt-6 text-xs leading-relaxed text-muted/80">
+        {content.cocLabel}{' '}
+        <a
+          href={COC_URL}
+          target="_blank"
+          rel="noreferrer"
+          class="underline decoration-line-strong underline-offset-2 transition-colors hover:text-foreground"
+        >
+          CODE_OF_CONDUCT.md ↗
+        </a>
+      </p>
+    </Reveal>
+  </div>
+</section>
+
+<div class="section-divider mx-auto max-w-6xl"></div>
+
+<!-- 社区治理：角色 + 原则。 -->
+<section id="governance" class="scroll-mt-28 px-5 py-32 md:px-8 md:py-44">
+  <div class="mx-auto max-w-6xl">
+    <div class="max-w-2xl">
+      <Reveal client:visible>
+        <p class="kicker">{content.governanceKicker}</p>
+      </Reveal>
+      <Reveal client:visible variant="mask" delay={0.08}>
+        <h2
+          class="mt-7 font-display text-4xl font-medium leading-[1.15] tracking-tight md:text-6xl"
+        >
+          {content.governanceHeading}
+        </h2>
+      </Reveal>
+      <Reveal client:visible delay={0.16}>
+        <p class="mt-5 text-muted">{content.governanceIntro}</p>
+      </Reveal>
+    </div>
+
+    <div class="mt-16 grid gap-10 md:grid-cols-3 md:gap-8">
+      {
+        content.roles.map((role, index) => (
+          <Reveal client:visible delay={0.1 + index * 0.08} y={16}>
+            <article class="border-t border-line pt-6">
+              <p class="font-display text-lg font-medium tracking-tight">{role.term}</p>
+              <p class="mt-3 text-sm leading-relaxed text-muted">{role.desc}</p>
+            </article>
+          </Reveal>
+        ))
+      }
+    </div>
+
+    <div class="mt-20 border-t border-line">
+      {
+        content.principles.map((item, index) => (
+          <Reveal client:visible delay={index * 0.06} y={14}>
+            <article
+              class="group flex flex-col gap-2 border-b border-line py-7 transition-colors hover:bg-surface/50 md:grid md:grid-cols-[1fr_2.2fr] md:items-baseline md:gap-10 md:py-8"
+            >
+              <h3
+                class="font-display text-xl font-medium tracking-tight transition-transform duration-300 group-hover:translate-x-1 md:text-2xl"
+              >
+                {item.term}
+              </h3>
+              <p class="text-sm leading-relaxed text-muted md:text-base">{item.desc}</p>
+            </article>
+          </Reveal>
+        ))
+      }
+    </div>
+
+    <Reveal client:visible delay={0.14}>
+      <p class="mt-8 text-xs leading-relaxed text-muted/80">{content.governanceNote}</p>
+    </Reveal>
+  </div>
+</section>
+
+<div class="section-divider mx-auto max-w-6xl"></div>
+
+<!-- 行动号召。 -->
+<section class="px-5 py-24 md:px-8 md:py-32">
+  <div class="mx-auto flex max-w-3xl flex-col items-center gap-8 text-center">
+    <Reveal client:visible>
+      <a
+        href={ORG_URL}
+        target="_blank"
+        rel="noreferrer"
+        class="group inline-flex h-12 items-center gap-2.5 rounded-full bg-gradient-to-r from-brand-blue to-brand-violet px-7 text-sm font-medium text-white transition-transform duration-300 hover:-translate-y-0.5"
+      >
+        {content.githubLabel}
+        <span class="transition-transform duration-300 group-hover:translate-x-0.5">
+          →
+        </span>
+      </a>
+    </Reveal>
+    <Reveal client:visible delay={0.12}>
+      <p class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted">
+        <a
+          href={CONTRIBUTING_URL}
+          target="_blank"
+          rel="noreferrer"
+          class="transition-colors hover:text-foreground"
+        >
+          CONTRIBUTING.md ↗
+        </a>
+        <a
+          href={COC_URL}
+          target="_blank"
+          rel="noreferrer"
+          class="transition-colors hover:text-foreground"
+        >
+          CODE_OF_CONDUCT.md ↗
+        </a>
+        <a
+          href={REPOS_URL}
+          target="_blank"
+          rel="noreferrer"
+          class="transition-colors hover:text-foreground"
+        >
+          Repositories ↗
+        </a>
+      </p>
+    </Reveal>
+  </div>
+</section>

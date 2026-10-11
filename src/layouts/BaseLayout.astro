@@ -9,13 +9,19 @@ interface Props {
   content: SiteContent;
   /** 目标语言页地址：/en/ 或 /。 */
   otherLocaleHref: string;
+  /** 页面路径（不含语言前缀与首尾斜杠），如 'community' → /community/；首页缺省。 */
+  path?: string;
 }
 
-const { content, otherLocaleHref } = Astro.props;
+const { content, otherLocaleHref, path = '' } = Astro.props;
 const strings = ui[content.locale];
 const currentLangShort = content.locale === 'zh-CN' ? '中' : 'EN';
 const site = 'https://ryveo-lab.github.io';
-const canonical = content.locale === 'zh-CN' ? `${site}/` : `${site}/en/`;
+const homePath = path ? `${path}/` : '';
+const zhHref = `${site}/${homePath}`;
+const enHref = `${site}/en/${homePath}`;
+const canonical = content.locale === 'zh-CN' ? zhHref : enHref;
+const communityHref = content.locale === 'zh-CN' ? '/community/' : '/en/community/';
 const ogLocale = content.locale === 'zh-CN' ? 'zh_CN' : 'en_US';
 const skipLabel =
   content.locale === 'zh-CN' ? '跳到主要内容' : 'Skip to main content';
@@ -33,8 +39,8 @@ const skipLabel =
     <meta name="description" content={content.seo.description} />
     <link rel="icon" type="image/png" href="/brand/favicon.png" />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="zh-CN" href={`${site}/`} />
-    <link rel="alternate" hreflang="en" href={`${site}/en/`} />
+    <link rel="alternate" hreflang="zh-CN" href={zhHref} />
+    <link rel="alternate" hreflang="en" href={enHref} />
     <link rel="alternate" hreflang="x-default" href={`${site}/`} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="RYVEO LAB" />
@@ -81,6 +87,7 @@ const skipLabel =
       content={content.footer}
       links={content.navLinks}
       otherLocaleHref={otherLocaleHref}
+      communityHref={communityHref}
       ui={strings}
     />
   </body>

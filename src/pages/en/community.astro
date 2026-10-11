@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import content from '../../content/en';
+import Community from '../../sections/Community.astro';
+---
+
+<!-- 社区页（英文），静态生成于 /en/community/。 -->
+<BaseLayout content={content} otherLocaleHref="/community/" path="community">
+  <Community content={content.community} />
+</BaseLayout>

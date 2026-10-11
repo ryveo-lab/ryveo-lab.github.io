@@ -7,10 +7,12 @@ interface Props {
   content: FooterCopy;
   links: NavLink[];
   otherLocaleHref: string;
+  /** 社区页地址：/community/（中文站）或 /en/community/（英文站）。 */
+  communityHref: string;
   ui: UiStrings;
 }
 
-const { content, links, otherLocaleHref, ui } = Astro.props;
+const { content, links, otherLocaleHref, communityHref, ui } = Astro.props;
 ---
 
 <footer class="border-t border-line px-5 py-20 md:px-8">
@@ -60,6 +62,14 @@ const { content, links, otherLocaleHref, ui } = Astro.props;
             class="text-sm text-muted transition-colors hover:text-foreground"
           >
             {content.githubLabel} ↗
+          </a>
+        </li>
+        <li>
+          <a
+            href={communityHref}
+            class="text-sm text-muted transition-colors hover:text-foreground"
+          >
+            {content.communityLabel}
           </a>
         </li>
         <li>
