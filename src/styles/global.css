@@ -246,3 +246,16 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* 移动端安全区：刘海屏/灵动岛横屏时，内容不被设备凸起遮挡。
+   仅在视口实际存在安全区时生效，其余环境为 0。 */
+main {
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+header {
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+  padding-top: max(0px, env(safe-area-inset-top, 0px));
+}

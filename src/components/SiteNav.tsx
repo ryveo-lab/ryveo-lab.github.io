@@ -211,7 +211,7 @@ export function SiteNav({
               href={otherLocaleHref}
               onClick={switchLang}
               aria-label={ui.switchLang}
-              className="flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-xs font-medium transition-colors hover:border-line-strong"
+              className="flex h-10 items-center gap-1.5 rounded-full border border-line px-3 text-xs font-medium transition-colors hover:border-line-strong"
             >
               <span className="text-foreground">{currentLangShort}</span>
               <span className="text-muted opacity-50">/</span>
@@ -224,7 +224,7 @@ export function SiteNav({
               type="button"
               onClick={toggleTheme}
               aria-label={ui.themeToggle}
-              className="group grid h-9 w-9 place-items-center rounded-full border border-line text-muted transition-colors hover:border-line-strong hover:text-foreground"
+              className="group grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-line-strong hover:text-foreground"
             >
               <span className="hidden transition-transform duration-300 group-hover:rotate-12 dark:block">
                 <SunIcon />
@@ -236,7 +236,7 @@ export function SiteNav({
 
             <button
               type="button"
-              className="grid h-9 w-9 place-items-center rounded-full border border-line text-foreground md:hidden"
+              className="grid h-10 w-10 place-items-center rounded-full border border-line text-foreground md:hidden"
               aria-expanded={open}
               aria-label={open ? ui.closeMenu : ui.openMenu}
               onClick={() => setOpen((v) => !v)}
